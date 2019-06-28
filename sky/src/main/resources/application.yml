@@ -1,3 +1,7 @@
+opensky:
+  base_url: https://opensky-network.org/api
+  all_states: /states/all
+  
 management:
   security:  
     enabled: false   
