@@ -3,6 +3,7 @@ package io.project.app.sky.dto;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PositionSource {
+    
     ADS_B(0),
     ASTERIX(1),
     MLAT(2);

@@ -19,7 +19,11 @@
         <spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
     </properties>
 
-    <dependencies>
+    <dependencies>      
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
@@ -136,8 +140,9 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
+  
+    <repositories>       
+     
         <repository>
             <id>jcenter-snapshots</id>
             <name>jcenter</name>
@@ -173,7 +178,7 @@
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
-
+ 
 
 
 </project>

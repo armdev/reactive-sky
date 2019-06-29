@@ -3,20 +3,19 @@ package io.project.app.sky.recources;
 import io.project.app.sky.domain.Aircraft;
 import io.project.app.sky.dto.Flight;
 import io.project.app.sky.services.FlightService;
-import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController
-@RequestMapping("/api/v2/fligths")
+@Controller
+//@RestController
+//@RequestMapping("/api/v2/fligths")
 @Slf4j
 public class FlightResource {
 
@@ -27,7 +26,8 @@ public class FlightResource {
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE, value = "/flight")
     @ResponseBody
     public Flux<Flight> flights() {
-        return Flux.from(service.getAllFlights().delayElement(Duration.ofSeconds(10)));
+        log.info("Flight stream called");
+        return Flux.from(service.getAllFlights());
 
     }
 
@@ -36,6 +36,11 @@ public class FlightResource {
     public Mono<Aircraft> find(@RequestParam String icao) {
         return service.getFlightDetail(icao);
 
+    }
+    
+    @GetMapping("/")
+    Mono<String> home() {
+        return Mono.just("flights");
     }
 
 }

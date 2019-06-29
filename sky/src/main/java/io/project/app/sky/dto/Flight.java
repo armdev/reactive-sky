@@ -1,12 +1,18 @@
 package io.project.app.sky.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import lombok.Data;
 
-import java.util.Collection;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Flight {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Flight implements Serializable{
 
     private int time;
-    private Collection<StateVector> states;
+    private List<StateVector> states = new ArrayList<>();
 }

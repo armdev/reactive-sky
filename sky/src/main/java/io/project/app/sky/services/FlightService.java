@@ -3,6 +3,7 @@ package io.project.app.sky.services;
 import io.project.app.sky.domain.Aircraft;
 import io.project.app.sky.dto.Flight;
 import io.project.app.sky.repositories.AircraftRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Component
+@Slf4j
 public class FlightService {
 
     @Value("${opensky.base_url}")
@@ -31,17 +33,17 @@ public class FlightService {
     }
 
     public Mono<Flight> getAllFlights() {
+        log.info("Client call to ");
+        log.info(baseURL + allStates);
         return client().get().uri(allStates).accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMap(cr -> cr.bodyToMono(Flight.class));
-
     }
 
     public Mono<Aircraft> getFlightDetail(String icao24) {
         return repository.findByIcao(icao24);
     }
-    
-    
+
     public Mono<Aircraft> doSave(Aircraft aircraft) {
         return repository.save(aircraft);
     }
