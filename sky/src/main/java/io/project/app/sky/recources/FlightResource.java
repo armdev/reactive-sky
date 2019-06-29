@@ -1,5 +1,6 @@
 package io.project.app.sky.recources;
 
+import io.project.app.sky.domain.Aircraft;
 import io.project.app.sky.dto.Flight;
 import io.project.app.sky.services.FlightService;
 import java.time.Duration;
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v2/fligths")
@@ -25,6 +28,13 @@ public class FlightResource {
     @ResponseBody
     public Flux<Flight> flights() {
         return Flux.from(service.getAllFlights().delayElement(Duration.ofSeconds(10)));
+
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/flight/icao")
+    @ResponseBody
+    public Mono<Aircraft> find(@RequestParam String icao) {
+        return service.getFlightDetail(icao);
 
     }
 
